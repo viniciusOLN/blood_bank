@@ -1,7 +1,7 @@
 import styled from  'styled-components';
 
 export const NavbarDiv = styled.div`
-    height: 70px;
+    height: auto;
     background: #6441EE;
     display: flex;
     align-items: center;
@@ -10,10 +10,15 @@ export const NavbarDiv = styled.div`
     padding-left: 40px;
     font-weight: bold;
 
-    img{
+    #logo{
+        width: 8%;
+        height: auto;
+    }
+
+    a > img{
+        width: 100%;
         height: 100%;
-        cursor: pointer;
-        margin-right: 10px;
+        display block;
     }
 
     button{

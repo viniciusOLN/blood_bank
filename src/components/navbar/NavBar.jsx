@@ -1,11 +1,21 @@
 import { NavbarDiv, LinksDiv } from "./styled"
 import navbarIcon from '../../assets/images/navbar-icon.svg';
 import { Link } from "react-router-dom";
+import { renderModal } from "../../utils/modalUtils";
+import ModalLogin from "../modalLogin/ModalLogin";
 
-export default function NavBar(){
+function NavBar({modalLoginOpen}){
+
+    const handleLogin = () => {
+        const modal = <ModalLogin/>
+        renderModal(modal)
+    }
+
     return(
         <NavbarDiv>
-            <img src={navbarIcon} alt=""/>
+            <a href='/' id='logo'>
+                <img src={navbarIcon} alt="Blood Bank Logo System" title='Sistema de coleta de sangue'/>
+            </a>
             <LinksDiv>
                 <Link to='/'>
                     Como doar?
@@ -17,9 +27,9 @@ export default function NavBar(){
                     Benefícios de doar sangue
                 </Link>
             </LinksDiv>
-            <button>
-                Login
-            </button>
+            <button onClick={ handleLogin }>Login</button>
         </NavbarDiv>
     );
 }
+
+export default NavBar
