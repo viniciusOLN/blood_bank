@@ -5,7 +5,7 @@ import Home from './pages/homepage/homepage';
 function App() {
   return (
    <BrowserRouter>
-      <NavBar modalLoginOpen={setModalLogin}/>
+      <NavBar />
       <Routes>
         <Route path='/' element={<Home />}/>
       </Routes>
