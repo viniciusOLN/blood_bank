@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const OverlayDiv = styled.div`
-  width: 35%;
+  width: 28%;
   background-color: var(--background-white-color);
   border-radius: var(--border-radius);
   box-shadow: var(--modal-box-shadow);
@@ -10,6 +10,10 @@ const OverlayDiv = styled.div`
   align-items: center;
   justify-content: center;
   padding: 10px;
+
+  @media(max-width: 1250px) {
+    width: 400px;
+  }
 `
 
 const CloseButtonDiv = styled.div`
