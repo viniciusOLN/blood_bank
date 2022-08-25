@@ -8,7 +8,6 @@ const TextInput = (props) => {
   const handleTextChange = (currentText) => {
     setValueInput(currentText)
     setInputIsActive(currentText !== '')
-    
   }
 
   return(
