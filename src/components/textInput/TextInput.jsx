@@ -19,7 +19,7 @@ const TextInput = (props) => {
     <>
       <DivInput>
         <Input type='text' value={valueInput} onChange={(e) => handleTextChange(e.target.value)}/>
-        <Placeholder id='text' className={ inputIsActive ? "Active" : ""}>
+        <Placeholder id='text' isActive ={inputIsActive} >
           {props.placeholder}
         </Placeholder>
       </DivInput>
