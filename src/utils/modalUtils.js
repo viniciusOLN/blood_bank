@@ -12,10 +12,12 @@ const createDivModal = () => {
 }
 
 const renderModal = (modal) => {
-  console.log(modal)
   const idModal = createDivModal()
   const res = createPortal(modal, idModal)
   render(res, document.createElement('div'))
 }
 
-export { renderModal }
+  
+const removeModal = (modal) => modal.remove();
+
+export { renderModal, removeModal }
