@@ -7,11 +7,7 @@ const TextInput = (props) => {
 
   const handleTextChange = (currentText) => {
     setValueInput(currentText)
-    if(currentText !== ''){
-      setInputIsActive(true)
-    }else{
-      setInputIsActive(false)
-    }
+    setInputIsActive((currentText !== ''))
     
   }
 
