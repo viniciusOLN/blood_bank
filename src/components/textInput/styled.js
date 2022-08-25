@@ -26,8 +26,7 @@ const Placeholder = styled.div`
   position: absolute;
   top: 12px;
   left: 8px;
-  // transform: translate(0, 12px) scale(1);
-  transform: ${(props)=> props.isActive ? 'translate(0, -22px) scale(0.80)' : ' transform: translate(0, -24px) scale(0.80)' };
+  transform: ${(props)=> props.isActive ? 'translate(0, -22px) scale(0.80)' : ' transform: translate(0, -22px) scale(0.80)' };
   transform-origin: top left;
   transition: all 0.2s ease-out;
   pointer-events: none;
