@@ -3,17 +3,16 @@ import { useState } from 'react'
 
 const TextInput = (props) => {
   const [inputIsActive, setInputIsActive] = useState(false)
-  const [valueInput, setValueInput] = useState('')
 
   const handleTextChange = (currentText) => {
-    setValueInput(currentText)
+    props.setValueInput(currentText)
     setInputIsActive(currentText !== '')
   }
 
   return(
     <>
       <DivInput>
-        <Input type='text' value={valueInput} onChange={(e) => handleTextChange(e.target.value)}/>
+        <Input type='text' name={props.name} value={props.value} onChange={(e) => handleTextChange(e.target.value)}/>
         <Placeholder id='text' isActive ={inputIsActive} >
           {props.placeholder}
         </Placeholder>
