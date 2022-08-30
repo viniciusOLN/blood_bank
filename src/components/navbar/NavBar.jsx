@@ -4,10 +4,9 @@ import { Link } from "react-router-dom";
 import { renderModal } from "../../utils/modalUtils";
 import ModalLogin from "../modalLogin/ModalLogin";
 
-function NavBar(){
-
+function NavBar(props){
     const handleLogin = () => {
-        const modal = <ModalLogin/>
+        const modal = <ModalLogin userLogin={props.userLogin}/>
         renderModal(modal)
     }
 
