@@ -5,7 +5,7 @@ import TextInput from "../textInput/TextInput";
 import ButtonDefault from "../button/Buton";
 import { useState } from 'react'
 
-const ModalLogin = () => {
+const ModalLogin = (props) => {
   
   const [valueInputEmail, setValueInputEmail] = useState('')
   const [valueInputPassword, setValueInputPassword] = useState('')
@@ -20,6 +20,7 @@ const ModalLogin = () => {
     fetch('http://127.0.0.1:8000/blood_bank/login/' , {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
+      // Autorization: 'Token ${props.token}' ,
       body: JSON.stringify({
         email: valueInputEmail,
         password: valueInputPassword
@@ -27,7 +28,7 @@ const ModalLogin = () => {
     }).then( data => data.json())
     .then(
       data => {
-        console.log(data)
+        props.userLogin(data.token)
       }
     ).catch( error => console.error(error))
   }
