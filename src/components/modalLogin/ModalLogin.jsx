@@ -14,6 +14,20 @@ const ModalLogin = () => {
     e.preventDefault()
     console.log(valueInputEmail)
     console.log(valueInputPassword)
+    
+    fetch('http://127.0.0.1:8000/blood_bank/login/' , {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        email: valueInputEmail,
+        password: valueInputPassword
+     }),
+    }).then( data => data.json())
+    .then(
+      data => {
+        console.log(data)
+      }
+    ).catch( error => console.error(error))
   }
 
   return (
