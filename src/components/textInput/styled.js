@@ -3,10 +3,20 @@ import styled from 'styled-components'
 const DivInput = styled.div`
   width: 100%;
   position: relative;
+  margin-bottom: 10px;
   &:focus-within #text{
     transform: translate(0, -22px) scale(0.80);
   }
-  margin-bottom: 10px;
+
+  i{
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--title-black);
+    position: absolute;
+    right: 0;
+    transform: translate(-15px, 18px);
+    cursor: pointer;
+  }
 
 `
 
