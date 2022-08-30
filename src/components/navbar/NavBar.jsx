@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { renderModal } from "../../utils/modalUtils";
 import ModalLogin from "../modalLogin/ModalLogin";
 
-function NavBar({modalLoginOpen}){
+function NavBar(){
 
     const handleLogin = () => {
         const modal = <ModalLogin/>

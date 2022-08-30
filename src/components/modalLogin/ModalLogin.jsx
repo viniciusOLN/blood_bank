@@ -6,17 +6,18 @@ import ButtonDefault from "../button/Buton";
 import { useState } from 'react'
 
 const ModalLogin = () => {
-  
+  const initialValues = {email: '', password: ''}
+  const [formValues, setFormValues] = useState(initialValues)
   const [valueInputEmail, setValueInputEmail] = useState('')
   const [valueInputPassword, setValueInputPassword] = useState('')
-  const [hidePassword, setHidePassword] = useState(false);
-
+  const [hidePassword, setHidePassword] = useState(false)
   
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log(valueInputEmail)
     console.log(valueInputPassword)
   }
+
 
   const handleHiddePassword = () => setHidePassword(!hidePassword)
 
@@ -29,6 +30,7 @@ const ModalLogin = () => {
       <DivLogin>
         <form onSubmit={ handleSubmit }>
           <TextInput
+            formValues = { formValues.email }
             value = { valueInputEmail } 
             type='Email' 
             name='email' 
