@@ -19,6 +19,13 @@ const BrandLogo = styled.div`
 const DivLogin = styled.div`
   width: 90%;
   margin-bottom: 20px;
+
+  .errorApi {
+    font-size: 14px;
+    margin-bottom: 12px;
+    color: var(--error-color);
+    font-weight: 500;
+  }
 `
 
 const CreateAccount = styled.p`

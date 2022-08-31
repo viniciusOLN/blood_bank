@@ -3,6 +3,7 @@ import { useState } from 'react'
 
 const TextInput = (props) => {
   const [inputIsActive, setInputIsActive] = useState(false)
+  let errorValidate = (props.validate !== '')
 
   const handleTextChange = (currentText) => {
     props.setValueInput(currentText)
@@ -12,12 +13,17 @@ const TextInput = (props) => {
   return(
     <>
       <DivInput>
-        <Input type={props.type} name={props.name} value={props.value} onChange={(e) => handleTextChange(e.target.value)}/>
+        <Input type={props.type} name={props.name} error={errorValidate} value={props.value} onChange={(e) => handleTextChange(e.target.value)}/>
         <Placeholder id='text' isActive ={inputIsActive} >
           {props.placeholder}
         </Placeholder>
         <i className={props.icon} onClick={props.onClickIcon}></i>
+        
+        { errorValidate && 
+        <p>{props.validate}</p> 
+      }
       </DivInput>
+      
     </>
   )
 }

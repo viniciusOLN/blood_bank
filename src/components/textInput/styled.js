@@ -3,7 +3,7 @@ import styled from 'styled-components'
 const DivInput = styled.div`
   width: 100%;
   position: relative;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   &:focus-within #text{
     transform: translate(0, -22px) scale(0.80);
   }
@@ -18,13 +18,19 @@ const DivInput = styled.div`
     cursor: pointer;
   }
 
+  p{
+    font-size: 12px;
+    margin-top: 5px;
+    color: var(--error-color);
+  }
+
 `
 
 const Input = styled.input `
   width: 100%;
   outline: none;
   padding: 15px;
-  border: 2px solid var(--primary-color);
+  border: 2px solid ${(props) => props.error ? 'var(--error-color)' : 'var(--primary-color)'};
   caret-color: var(--primary-color);
   font-family: 'Inter';
   font-weight: regular;
