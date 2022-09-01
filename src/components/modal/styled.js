@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const OverlayDiv = styled.div`
-  width: 28%;
+  width: 32%;
   background-color: var(--background-white-color);
   border-radius: var(--border-radius);
   box-shadow: var(--modal-box-shadow);
