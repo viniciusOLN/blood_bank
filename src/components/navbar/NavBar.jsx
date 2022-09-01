@@ -3,10 +3,12 @@ import navbarIcon from '../../assets/images/navbar-icon.svg';
 import { Link } from "react-router-dom";
 import { renderModal } from "../../utils/modalUtils";
 import ModalLogin from "../modalLogin/ModalLogin";
+import ModalCreateAccount from "../modalCreateAccount/ModalCreateAccount";
 
 function NavBar(props){
     const handleLogin = () => {
-        const modal = <ModalLogin userLogin={props.userLogin}/>
+        // const modal = <ModalLogin userLogin={props.userLogin}/>
+        const modal = <ModalCreateAccount/>
         renderModal(modal)
     }
 
