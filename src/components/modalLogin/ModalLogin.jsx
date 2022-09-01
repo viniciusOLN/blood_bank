@@ -6,25 +6,23 @@ import ButtonDefault from "../button/Buton";
 import { useState } from 'react'
 
 const ModalLogin = (props) => {
-  const [valueInputEmail, setValueInputEmail] = useState('')
-  const [valueInputPassword, setValueInputPassword] = useState('')
-  const [hidePassword, setHidePassword] = useState(false)
-  const [error, setError] = useState({
-    email: '',
-    password: '',
-  })
+  const [errors, setErrors] = useState({ email: '', password: '' })
+  const [fields, setFields] = useState({ email: '', password: '', hidePassword: false })
   const [apiError, setApiError] = useState('')
+
+  const setField = (text, field) => {
+    setFields((fields) => ({... fields, [field]: text}))
+  }
 
   const validateForm = () => {
     setApiError('')
 
-    let inputEmail = (valueInputEmail === '') ? 'Campo de Email vazio!' : ''
-    let inputPassword = (valueInputPassword === '') ? 'Campo de senha vazio!' : ''
+    let inputEmail = (fields.email === '') ? 'Campo de Email vazio!' : ''
+    let inputPassword = (fields.password === '') ? 'Campo de senha vazio!' : ''
 
-    setError(error => ({...error, email: inputEmail}))
-    setError(error => ({...error, password: inputPassword}))
+    setErrors(errors => ({...errors,  email: inputEmail, password: inputPassword}))
 
-    return (valueInputEmail !== '' && valueInputPassword !== '')
+    return (fields.email !== '' && fields.password !== '')
   }
   
   const handleSubmit = (e) => {
@@ -36,8 +34,8 @@ const ModalLogin = (props) => {
       headers: {'Content-Type': 'application/json'},
       // Autorization: 'Token ${props.token}' ,
       body: JSON.stringify({
-        email: valueInputEmail,
-        password: valueInputPassword
+        email: fields.email,
+        password: fields.password
      }),
     }).then( data => data.json())
     .then(
@@ -52,11 +50,11 @@ const ModalLogin = (props) => {
 
   }
 
-  const handleHiddePassword = () => setHidePassword(!hidePassword)
+  const handleHiddePassword = () => setFields((fields) => ({ ... fields, hidePassword: !fields.hidePassword}))
 
   return (
     <Modal>
-     <TitleLogin>Login</TitleLogin>
+      <TitleLogin>Login</TitleLogin>
       <BrandLogo>
         <img src={ navbarIcon } alt="Blood Bank Logo System" title='Sistema de coleta de sangue'/>
       </BrandLogo>
@@ -64,22 +62,22 @@ const ModalLogin = (props) => {
         <p className='errorApi'>{apiError}</p>
         <form onSubmit={ handleSubmit }>
           <TextInput
-            value = { valueInputEmail } 
-            validate = { error.email }
+            value = { fields.email } 
+            validate = { errors.email }
             type='Email' 
             name='email' 
-            setValueInput = { setValueInputEmail } 
             placeholder='Email'
+            onChange = {(e) => setField(e.target.value, 'email')}
           />    
           <TextInput 
-            value = { valueInputPassword } 
-            validate = { error.password }
-            type={ hidePassword ? 'Text' : 'Password' }
+            value = { fields.password } 
+            validate = { errors.password }
+            type={ fields.hidePassword ? 'Text' : 'Password' }
             name='password'
-            icon ={ hidePassword ? 'ri-eye-off-line' : 'ri-eye-line' }
+            icon ={ fields.hidePassword ? 'ri-eye-off-line' : 'ri-eye-line' }
             onClickIcon={ handleHiddePassword } 
-            setValueInput = { setValueInputPassword }
             placeholder='Senha'
+            onChange = {(e) => setField(e.target.value, 'password')}
           />
           <ButtonDefault title='Entrar' />
         </form>
