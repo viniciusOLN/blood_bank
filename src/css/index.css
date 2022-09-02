@@ -11,6 +11,8 @@
   --text-black: #494949;
 
   --error-color: #E21919;
+  --success-color: rgb(9, 114, 9);
+  --warning-color: rgb(209, 209, 21);
 
   --font-inter: 'Inter', Arial, Helvetica, sans-serif;
 

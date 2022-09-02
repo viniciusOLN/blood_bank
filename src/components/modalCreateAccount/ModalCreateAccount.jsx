@@ -7,7 +7,7 @@ import { useState } from 'react'
 
 const ModalLogin = () => {
   const [apiError, setApiError] = useState('')
-  const [passwordSecurity, setPasswordSecurity] = useState({ security: '', color: '' })
+  const [passwordSecurity, setPasswordSecurity] = useState({ security: '', color: '--error-color' })
   const [error, setError] = useState({ email: '', birthdate: '', password: '', confirmPassword: '' })
   const [fields, setFields] = useState({ 
     email: '', 
@@ -26,8 +26,8 @@ const ModalLogin = () => {
       return {
         ...error, 
         email: (fields.email === '') ? 'Campo de Email vazio!' : '',  
-        password: (fields.password === '') ? 'Preencha a data de nascimento!' : '', 
-        birthdate: (fields.birthdate === '') ? 'Campo de senha vazio!' : '', 
+        password: (fields.password === '') ? 'Campo de senha vazio!' : '', 
+        birthdate: (fields.birthdate === '') ? 'Preencha a data de nascimento!' : '', 
         confirmPassword: (fields.confirmPassword === '') ? 'Campo vazio!' : ''  
       }
     })
@@ -40,8 +40,62 @@ const ModalLogin = () => {
     validateForm()
   }
 
-  const handleHiddePassword = () => setFields((fields) => ({ ... fields, hidePassword: !fields.hidePassword}))
-  const handleHiddeConfirmPassword = () => setFields((fields) => ({ ... fields, hideConfirmPassword: !fields.hideConfirmPassword}))
+  function handleHiddePassword(){
+    setFields((fields) => ({ ... fields, hidePassword: !fields.hidePassword}))
+  } 
+
+  function handleHiddeConfirmPassword(){
+    setFields((fields) => ({ ... fields, hideConfirmPassword: !fields.hideConfirmPassword}))
+  }
+
+  function setField(text, field){
+    setFields((fields) => ({... fields, [field]: text}))
+  }
+
+  function verifyIfSamePassword(text){
+    let statePassword = ''
+    setField(text, 'confirmPassword')
+    if(text !== fields.password){
+      statePassword = 'A senha precisa ser igual a que você digitou anteriormente.'
+    }
+    setError(error => ({...error, confirmPassword: statePassword }))
+  }
+
+  function verifyPasswordSecurity(text){
+    setField(text, 'password')
+    const MIN_CARACTERS = 8
+    const specialCaracters = ['@', '#', '$', '*', '&', '%', '/', '\\']
+    const numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
+    let messageField = ''
+    let colorField = '--error-color'
+    let securityPassword = ''
+    const hasNumbers = numbers.some((e) => text.includes(e))
+    const hasSpecialCaracters = specialCaracters.some((e) => text.includes(e))
+    
+    if(text.length <= MIN_CARACTERS){
+      securityPassword = 'fraca'
+      messageField = `Mínimo de Caracteres: ${MIN_CARACTERS}`
+    }
+
+    if(text.length > MIN_CARACTERS){
+      securityPassword = 'fraca'
+    }
+
+    if(text.length >= MIN_CARACTERS && hasNumbers){
+      messageField = ''
+      securityPassword = 'mediana'
+      colorField = '--warning-color'      
+    }
+
+    if(text.length >= MIN_CARACTERS && hasSpecialCaracters && hasNumbers){
+      messageField = ''
+      securityPassword = 'forte' 
+      colorField = '--success-color'     
+    }
+    
+    setError(error => ({ ...error, password: messageField }))
+    setPasswordSecurity((security) => ({... security, security: securityPassword, color: colorField}))
+  }
 
   return (
     <Modal>
@@ -49,7 +103,7 @@ const ModalLogin = () => {
       <BrandLogo>
         <img src={ navbarIcon } alt="Blood Bank Logo System" title='Sistema de coleta de sangue'/>
       </BrandLogo>
-      <DivLogin>
+      <DivLogin colorTipPassword = {passwordSecurity.color}>
         <p className='errorApi'>{apiError}</p>
         <form onSubmit={ handleSubmit }>
           <TextInput
@@ -58,7 +112,7 @@ const ModalLogin = () => {
             type='Email' 
             name='email' 
             placeholder='Email'
-            onChange = {(e) => setFields((fields) => ({... fields, email: e.target.value})) }
+            onChange = {(e) => setField(e.target.value, 'email') }
           />    
           <TextInput 
             value = { fields.birthdate } 
@@ -66,7 +120,7 @@ const ModalLogin = () => {
             type='date'
             name='birthdate'
             placeholder='Data de Nascimento'
-            onChange = {(e) => setFields((fields) => ({... fields, birthdate: e.target.value})) }
+            onChange = {(e) => setField(e.target.value, 'birthdate') }
           />
            <TextInput 
             value = { fields.password } 
@@ -76,7 +130,7 @@ const ModalLogin = () => {
             icon ={ fields.hidePassword ? 'ri-eye-off-line' : 'ri-eye-line' }
             onClickIcon={ handleHiddePassword } 
             placeholder='Senha'
-            onChange = {(e) => setFields((fields) => ({... fields, password: e.target.value})) }
+            onChange = {(e) => verifyPasswordSecurity(e.target.value) }
           />
            <TextInput 
             value = { fields.confirmPassword } 
@@ -86,9 +140,12 @@ const ModalLogin = () => {
             icon ={ fields.hideConfirmPassword ? 'ri-eye-off-line' : 'ri-eye-line' }
             onClickIcon={ handleHiddeConfirmPassword } 
             placeholder='Repetir senha'
-            onChange = {(e) => setFields((fields) => ({... fields, confirmPassword: e.target.value})) }
+            onChange = {(e) => verifyIfSamePassword(e.target.value) }
           />
-          <p className="passwordSecurity">Segurança da senha: <span>fraca</span></p>
+          {passwordSecurity.security != '' && 
+            <p className="passwordSecurity">Segurança da senha: <span>{ passwordSecurity.security }</span></p>
+          }
+         
           <ButtonDefault title='Entrar' />
         </form>
        

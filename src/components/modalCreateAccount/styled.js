@@ -33,7 +33,7 @@ const DivLogin = styled.div`
   }
 
   .passwordSecurity span{
-    color: var(--error-color);
+    color: var(${(props) => props.colorTipPassword});
     font-weight: 800;
     text-transform: uppercase;
   }
