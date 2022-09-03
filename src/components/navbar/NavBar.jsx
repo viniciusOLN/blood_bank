@@ -7,8 +7,7 @@ import ModalCreateAccount from "../modalCreateAccount/ModalCreateAccount";
 
 function NavBar(props){
     const handleLogin = () => {
-        // const modal = <ModalLogin userLogin={props.userLogin}/>
-        const modal = <ModalCreateAccount/>
+        const modal = <ModalLogin userLogin={props.userLogin}/>
         renderModal(modal)
     }
 
