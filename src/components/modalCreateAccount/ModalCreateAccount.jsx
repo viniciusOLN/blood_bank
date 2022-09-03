@@ -5,7 +5,7 @@ import TextInput from "../textInput/TextInput";
 import ButtonDefault from "../button/Buton";
 import { useState } from 'react'
 
-const ModalLogin = () => {
+const ModalCreateAccount = () => {
   const [apiError, setApiError] = useState('')
   const [passwordSecurity, setPasswordSecurity] = useState({ security: '', color: '--error-color' })
   const [error, setError] = useState({ email: '', birthdate: '', password: '', confirmPassword: '' })
@@ -40,17 +40,13 @@ const ModalLogin = () => {
     validateForm()
   }
 
-  function handleHiddePassword(){
-    setFields((fields) => ({ ... fields, hidePassword: !fields.hidePassword}))
-  } 
+  const handleHiddePassword = () => setFields((fields) => ({ ... fields, hidePassword: !fields.hidePassword}))
 
   function handleHiddeConfirmPassword(){
     setFields((fields) => ({ ... fields, hideConfirmPassword: !fields.hideConfirmPassword}))
   }
 
-  function setField(text, field){
-    setFields((fields) => ({... fields, [field]: text}))
-  }
+  const setField = (text, field) => setFields((fields) => ({... fields, [field]: text}))
 
   function verifyIfSamePassword(text){
     let statePassword = ''
@@ -154,4 +150,4 @@ const ModalLogin = () => {
   )
 }
 
-export default ModalLogin
+export default ModalCreateAccount
