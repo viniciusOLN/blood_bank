@@ -2,6 +2,9 @@ import styled from 'styled-components';
 
 const OverlayDiv = styled.div`
   width: 32%;
+  position: absolute;
+  top: 0;
+  margin-top: 50px;
   background-color: var(--background-white-color);
   border-radius: var(--border-radius);
   box-shadow: var(--modal-box-shadow);
