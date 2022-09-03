@@ -12,7 +12,7 @@ function App(props) {
   return (
    <BrowserRouter >
       <NavBar userLogin={userLogin} />
-      <Routes >
+      <Routes>
         <Route path='/' element={<Home />}/>
       </Routes>
    </BrowserRouter>
