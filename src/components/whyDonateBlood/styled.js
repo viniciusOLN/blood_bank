@@ -4,6 +4,7 @@ const DivSection = styled.div`
   background-color: var(--primary-color);
   position: relative;
   top: -3px;
+  padding-bottom: 150px;
 `
 
 const TitleSection = styled.h2`
@@ -11,7 +12,6 @@ const TitleSection = styled.h2`
   font-size: 26px;
   text-align: center;
   font-weight: bold;
-  margin-bottom: 100px;
 `
 
 const DivReasonsWhy = styled.div`
@@ -19,7 +19,8 @@ const DivReasonsWhy = styled.div`
   display: flex;
   align-itens: center;
   justify-content: center;
-  margin-bottom: 200px;
+  margin-top: 100px;
+  margin-bottom: 160px;
   flex-wrap: wrap;
 `
 
@@ -46,19 +47,59 @@ const DivHowDonateBlood = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0px 200px;
-  
+  padding: 0px 250px;
+  margin-top: 100px;
 `
 
 const DivContent = styled.div`
   width: 50%;
   display: flex;
   flex-direction: column;
+  align-items: start;
+  color: var(--title-white);
 
   img{
     width: 500px;
   }
+`
+const DivContentText = styled.div`
+  color: var(--title-white);
+  padding-left: 180px;
+  display: flex;
+  flex-direction: column;
 
+  p{
+    line-height: 26pt;
+    font-size: 25px;
+    width: 400px;
+    margin-bottom: 30px;
+  }
 `
 
-export { TitleSection, DivSection, DivReasonsWhy, DivReason, DivHowDonateBlood, DivContent }
+const DivButton = styled.div`
+  width: 200px;
+`
+
+const DivWave = styled.div`
+  pointer-events: none;
+  width: 100%;
+  position: relative;
+  bottom: 3px;
+ 
+
+  img{
+    width: 100%;
+  }
+`
+
+export { 
+  TitleSection, 
+  DivSection, 
+  DivReasonsWhy, 
+  DivReason, 
+  DivHowDonateBlood, 
+  DivContent, 
+  DivButton, 
+  DivContentText, 
+  DivWave, 
+}
