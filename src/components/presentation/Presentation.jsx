@@ -21,7 +21,7 @@ function Presentation(){
 						Vamos fazer parte desse ciclo do bem e doar sangue? Saiba como! 
 					</TextPresentation>
 					<DivButton>
-						<ButtonDefault title='Cadastrar' onClick={handleCreateAccount} />
+						<ButtonDefault title='Cadastrar' theme='default' onClick={handleCreateAccount} />
 					</DivButton>
 				</DivContent>
 				<DivContent>
