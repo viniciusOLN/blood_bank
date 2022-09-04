@@ -79,10 +79,10 @@ const ModalLogin = (props) => {
             placeholder='Senha'
             onChange = {(e) => setField(e.target.value, 'password')}
           />
-          <ButtonDefault title='Entrar' />
+          <ButtonDefault title='Entrar' theme='default' />
         </form>
         <CreateAccount>
-          Não possui uma conta ainda? <a href='/createAccount'>Crie uma aqui!</a>
+          Não possui uma conta ainda? <a href=''>Crie uma aqui!</a>
         </CreateAccount>
       </DivLogin>
     </Modal>
