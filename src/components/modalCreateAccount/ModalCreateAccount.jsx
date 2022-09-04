@@ -142,7 +142,7 @@ const ModalCreateAccount = () => {
             <p className="passwordSecurity">Segurança da senha: <span>{ passwordSecurity.security }</span></p>
           }
          
-          <ButtonDefault title='Entrar' />
+          <ButtonDefault title='Entrar' theme='default' />
         </form>
        
       </DivLogin>
