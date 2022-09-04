@@ -1,42 +1,67 @@
-import { TitleSection, DivSection, DivReasonsWhy, DivReason, DivHowDonateBlood, DivContent } from "./styled"
+import { 
+  TitleSection, 
+  DivSection, 
+  DivReasonsWhy, 
+  DivReason, 
+  DivHowDonateBlood, 
+  DivContent, 
+  DivButton, 
+  DivContentText, 
+  DivWave,
+} from "./styled"
 import reasonOne from '../../assets/images/whyDonateBloodReasonOne.svg'
 import reasonTwo from '../../assets/images/whyDonateBloodReasonTwo.svg'
 import reasonThree from '../../assets/images/whyDonateBloodReasonThree.svg'
 import howDonate from '../../assets/images/howDonateBlood.svg'
+import ButtonDefault from "../button/Buton"
+import waveDown from '../../assets/images/wave-down.svg'
 
 function WhyDonateBlood(){
+
+  const reasonsWhyDonate = [
+    { img: reasonOne, text: 'Uma única doação pode salvar 4 vidas!' },
+    { img: reasonTwo, text: 'O processo de doação é completamente seguro!' },
+    { img: reasonThree, text: 'O doador tem direito a um dia de folga no trabalho!' },
+  ]
+
+  const handleDonation = () => {
+
+  }
+
   return (
     <>
       <DivSection>
         <TitleSection>Por que doar sangue?</TitleSection>
         <DivReasonsWhy>
-          <DivReason>
-            <img src={reasonOne} />
-            <p>Uma única doação pode salvar 4 vidas!</p>
-          </DivReason>
-          <DivReason>
-            <img src={reasonTwo} />
-            <p>O processo de doação é completamente seguro!</p>
-          </DivReason>
-          <DivReason>
-            <img src={reasonThree} />
-            <p>O doador tem direito a um dia de folga no trabalho!</p>
-          </DivReason>
+          {
+            reasonsWhyDonate.map((item) => {
+                return <DivReason key= 'img'>
+                  <img src={item.img} />
+                  <p>{item.text}</p>
+                </DivReason>
+              }
+            )
+          }
         </DivReasonsWhy>
         <TitleSection>Como doar sangue?</TitleSection>
         <DivHowDonateBlood>
           <DivContent>
             <img src={howDonate} />
           </DivContent>
-          <DivContent>
+          <DivContentText>
             <p>
-            A doação é feita em um dos postos especializados de doação da sua cidade. Atravpés do site é possível marcar a doalção em um posto próxmo e fazer a doação
+            A doação é feita em um dos postos especializados de doação da sua cidade. Através do site é possível marcar a visita em um posto próximo e fazer a doação.
             </p>
-          </DivContent>
-      </DivHowDonateBlood>
-      </DivSection>
-      
-    </>
+            <DivButton>
+              <ButtonDefault title="Fazer doação" onClick={handleDonation}/>
+            </DivButton>   
+          </DivContentText>
+        </DivHowDonateBlood>
+    </DivSection>
+    <DivWave>
+      <img src={waveDown} />
+    </DivWave>
+  </>
   )
 }
 
