@@ -35,7 +35,11 @@ const Input = styled.input `
   font-family: 'Inter';
   font-weight: regular;
   color: var(--title-black);
-  border-radius: var(--border-radius);  
+  border-radius: var(--border-radius); 
+  
+  &.textarea{
+    height: 200px;
+  }
 `
 const Placeholder = styled.div`
   background-color: var(--background-white-color);

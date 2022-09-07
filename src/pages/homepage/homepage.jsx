@@ -1,3 +1,5 @@
+import Contact from "../../components/contact/Contact"
+import Footer from "../../components/footer/Footer"
 import Presentation from "../../components/presentation/Presentation"
 import WhyDonateBlood from "../../components/whyDonateBlood/WhyDonateBlood"
 
@@ -6,8 +8,9 @@ function Home(){
 		<>
 			<Presentation/>
 			<WhyDonateBlood/>
+			<Contact/>
+			<Footer/>
 		</>
-    
   )
 }
 

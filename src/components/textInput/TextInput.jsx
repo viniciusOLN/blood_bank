@@ -18,6 +18,7 @@ const TextInput = (props) => {
         error={errorValidate} 
         value={props.value} 
         onChange={(e) => handleTextChange(e)}
+        className={props.classname}
       />
       <Placeholder id='text' isActive ={inputIsActive} >
         {props.placeholder}
@@ -28,7 +29,6 @@ const TextInput = (props) => {
         <p>{props.validate}</p> 
       }
     </DivInput>
-
   )
 }
 
