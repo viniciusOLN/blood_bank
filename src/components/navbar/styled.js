@@ -1,18 +1,26 @@
 import styled from  'styled-components';
 
 export const NavbarDiv = styled.div`
-    height: auto;
+    height: 90px;
     background: #6441EE;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    padding-right: 40px;
-    padding-left: 40px;
     font-weight: bold;
+    
+    @media (max-width: 890px) {
+        height: auto;
+        justify-content: space-between;
+        padding: 10px;
+    }
 
     #logo{
         width: 8%;
         height: auto;
+        
+        @media (max-width: 1220px) {
+            width: 80px;
+        }
     }
 
     a > img{
@@ -39,10 +47,20 @@ export const NavbarDiv = styled.div`
         }
     }
 
+    & .burguer{
+        color: var(--title-white);
+        font-size: 35px;
+        cursor: pointer;
+        display: none;
+
+        @media (max-width: 890px){
+            display: block;
+        }
+    }
 `
 
 export const LinksDiv = styled.div`
-    height: 100%;
+    width: 900px;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
@@ -52,14 +70,17 @@ export const LinksDiv = styled.div`
         font-weight: 700;
         font-size: 18px;
         color: #FFFFFF;
-        margin-right: 100px;
         text-align: center;
         &:active{
         color: #313030;
         }
     }
 
-
-
-
+    @media (max-width: 890px) {
+        flex-direction: column;
+        display: ${(props)=> props.modalOpen ? 'flex' : 'none'};
+        a{
+            margin-bottom: 20px;
+        }
+    }
 `
