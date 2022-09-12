@@ -1,4 +1,4 @@
-import { NavbarDiv, LinksDiv } from "./styled"
+import { NavbarDiv, LinksDiv, DivRowUtils } from "./styled"
 import navbarIcon from '../../assets/images/navbar-icon.svg';
 import { Link } from "react-router-dom";
 import { renderModal } from "../../utils/modalUtils";
@@ -19,9 +19,12 @@ function NavBar(props){
 
     return(
         <NavbarDiv>
-            <a href='/' id='logo'>
-                <img src={navbarIcon} alt="Blood Bank Logo System" title='Sistema de coleta de sangue'/>
-            </a>
+            <DivRowUtils>
+                <a href='/' id='logo'>
+                    <img src={navbarIcon} alt="Blood Bank Logo System" title='Sistema de coleta de sangue'/>
+                </a>
+                <i className={ !menuIsOpen ? 'ri-menu-line' : 'ri-close-line' }   onClick={ handleOpenMenu }></i>
+            </DivRowUtils>
             <LinksDiv modalOpen = { menuIsOpen } >
                 <Link to='/'>
                     Como doar?
@@ -34,7 +37,7 @@ function NavBar(props){
                 </Link>
                 <button onClick={ handleLogin }>Login</button>
             </LinksDiv>
-            <i className="ri-menu-line burguer" onClick={ handleOpenMenu }></i>
+            
         </NavbarDiv>
     );
 }

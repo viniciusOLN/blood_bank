@@ -1,5 +1,7 @@
 import styled from  'styled-components';
 
+const TABLET_AND_PHONE_SIZE = 1060;
+
 export const NavbarDiv = styled.div`
     height: 90px;
     background: #6441EE;
@@ -8,19 +10,17 @@ export const NavbarDiv = styled.div`
     justify-content: space-evenly;
     font-weight: bold;
     
-    @media (max-width: 890px) {
+    @media (max-width: ${TABLET_AND_PHONE_SIZE}px) {
         height: auto;
+        flex-direction: column;
+        align-items: start;
         justify-content: space-between;
         padding: 10px;
     }
 
     #logo{
-        width: 8%;
+        width: 100px;
         height: auto;
-        
-        @media (max-width: 1220px) {
-            width: 80px;
-        }
     }
 
     a > img{
@@ -47,13 +47,14 @@ export const NavbarDiv = styled.div`
         }
     }
 
-    & .burguer{
+    i{
         color: var(--title-white);
         font-size: 35px;
         cursor: pointer;
         display: none;
+        margin-top: 20px;
 
-        @media (max-width: 890px){
+        @media (max-width: ${TABLET_AND_PHONE_SIZE}px){
             display: block;
         }
     }
@@ -76,11 +77,22 @@ export const LinksDiv = styled.div`
         }
     }
 
-    @media (max-width: 890px) {
+    @media (max-width: ${TABLET_AND_PHONE_SIZE}px) {
         flex-direction: column;
+        align-items: end;
+        margin: 20px 0px;
+        width: 100%;
         display: ${(props)=> props.modalOpen ? 'flex' : 'none'};
         a{
             margin-bottom: 20px;
         }
+    }
+`
+
+export const DivRowUtils = styled.div`
+    @media (max-width: ${TABLET_AND_PHONE_SIZE}px) {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
     }
 `
