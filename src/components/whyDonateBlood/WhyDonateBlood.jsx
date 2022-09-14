@@ -34,8 +34,8 @@ function WhyDonateBlood(){
         <TitleSection>Por que doar sangue?</TitleSection>
         <DivReasonsWhy>
           {
-            reasonsWhyDonate.map((item) => {
-                return <DivReason key= 'img'>
+            reasonsWhyDonate.map((item, index) => {
+                return <DivReason key= {index} >
                   <img src={item.img} />
                   <p>{item.text}</p>
                 </DivReason>
@@ -45,9 +45,7 @@ function WhyDonateBlood(){
         </DivReasonsWhy>
         <TitleSection>Como doar sangue?</TitleSection>
         <DivHowDonateBlood>
-          <DivContent>
-            <img src={howDonate} />
-          </DivContent>
+          <img src={howDonate} />
           <DivContentText>
             <p>
             A doação é feita em um dos postos especializados de doação da sua cidade. Através do site é possível marcar a visita em um posto próximo e fazer a doação.

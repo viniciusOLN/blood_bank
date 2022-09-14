@@ -7,9 +7,7 @@ function Contact(){
     <DivSection>
       <Title>Algum problema? Entre em contato</Title>
       <DivForm>
-        <DivContent>
-          <img src={contactImage} />
-        </DivContent>
+      <img src={contactImage} />
         <Form>
           <FormContact/>
         </Form>

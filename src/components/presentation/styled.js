@@ -97,11 +97,15 @@ const DivUtils = styled.div`
   }
 
   @media (max-width: ${SMALL_SIZE}px){
-    width: 500px;
+    width: auto;
     flex-direction: column;
     justif-content:center;
     align-items: center;
     padding: 0px 20px;
+
+    img{
+      width: 75%;
+    }
   }
 `
 

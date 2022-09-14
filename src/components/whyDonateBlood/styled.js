@@ -1,5 +1,9 @@
 import styled from 'styled-components'
 
+const TABLET_SIZE = 1210;
+const PHONE_SIZE = 1052;
+const SMALL_SIZE = 945;
+
 const DivSection = styled.div`
   background-color: var(--primary-color);
   position: relative;
@@ -33,34 +37,55 @@ const DivReason = styled.div`
   margin: 25px 50px;
 
   img{
-    width: 350px;
+    width: 100%;
     margin-bottom: 40px;
   }
 
   p{
     font-weight: 600;
     margin-top: 20px;
+
+    @media(max-width: ${SMALL_SIZE}px){
+      text-align: center;
+    }
   }
 `
 
 const DivHowDonateBlood = styled.div`
+  width: 70%;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0px 250px;
-  margin-top: 100px;
+  margin: 100px auto;
+
+  img{
+    width: 500px;
+    margin-bottom: 80px;
+    
+    @media(max-width: ${TABLET_SIZE}px){
+      width: 400px;
+    }
+
+    @media(max-width: ${PHONE_SIZE}px){
+      width: 50%;
+    }
+
+    @media(max-width: ${SMALL_SIZE}px){
+      width: 80%;
+    }
+  }
+
+  @media(max-width: ${SMALL_SIZE}px){
+    flex-direction: column;
+    width: 80%;
+  }
 `
 
 const DivContent = styled.div`
-  width: 50%;
   display: flex;
   flex-direction: column;
   align-items: start;
   color: var(--title-white);
-
-  img{
-    width: 500px;
-  }
 `
 const DivContentText = styled.div`
   color: var(--title-white);
@@ -73,11 +98,30 @@ const DivContentText = styled.div`
     font-size: 25px;
     width: 400px;
     margin-bottom: 30px;
+
+    @media(max-width: ${PHONE_SIZE}px){
+      font-size: 20px;
+    }
+
+    @media(max-width: ${SMALL_SIZE}px){
+      width: 100%;
+    }
+  }
+
+  
+  @media(max-width: ${SMALL_SIZE}px){
+    width: 100%;
+    align-items: center;
+    padding-left: 0;
   }
 `
 
 const DivButton = styled.div`
   width: 200px;
+
+  @media(max-width: ${SMALL_SIZE}px){
+    width: 100%;
+  }
 `
 
 const DivWave = styled.div`
