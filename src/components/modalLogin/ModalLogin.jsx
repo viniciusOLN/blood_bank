@@ -4,6 +4,7 @@ import navbarIcon from '../../assets/images/navbar-icon.svg';
 import TextInput from "../textInput/TextInput";
 import ButtonDefault from "../button/Buton";
 import { useState } from 'react'
+import getUserTokenLogin from "../../proxies/getUserTokenLogin";
 
 const ModalLogin = (props) => {
   const [errors, setErrors] = useState({ email: '', password: '' })
@@ -25,29 +26,22 @@ const ModalLogin = (props) => {
     return (fields.email !== '' && fields.password !== '')
   }
   
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
+    const formValidated = validateForm()
 
-   if(validateForm()){
-    fetch('http://127.0.0.1:8000/blood_bank/login/' , {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      // Autorization: 'Token ${props.token}' ,
-      body: JSON.stringify({
-        email: fields.email,
-        password: fields.password
-     }),
-    }).then( data => data.json())
-    .then(
-      data => {
-        if(data.token) props.userLogin(data.token)
-        setApiError(data)
-      }
-    ).catch( (error) => {
-      console.error(error.responseCode)
-    })
-   }
+    if(formValidated){
+      handleTokenUser()
+    }
+  }
 
+  async function handleTokenUser(){
+    const getToken = await getUserTokenLogin(fields.email, fields.password)
+
+    if(getToken.isVerified){
+      setApiError(getToken.return.email)
+      return
+    }
   }
 
   const handleHiddePassword = () => setFields((fields) => ({ ... fields, hidePassword: !fields.hidePassword}))
