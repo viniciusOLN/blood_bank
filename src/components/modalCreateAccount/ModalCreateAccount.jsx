@@ -28,9 +28,17 @@ const ModalCreateAccount = () => {
         email: (fields.email === '') ? 'Campo de Email vazio!' : '',  
         password: (fields.password === '') ? 'Campo de senha vazio!' : '', 
         birthdate: (fields.birthdate === '') ? 'Preencha a data de nascimento!' : '', 
-        confirmPassword: (fields.confirmPassword === '') ? 'Campo vazio!' : ''  
       }
     })
+
+    // if(verifyIfSamePassword()){
+    //   setError(error => {
+    //     return {
+    //       ...error,  
+    //       confirmPassword: 'A senha precisa ser igual a que você digitou anteriormente.'  
+    //     }
+    //   })
+    // }
 
     return (fields.email !== '' && fields.password !== '')
   }
@@ -55,6 +63,8 @@ const ModalCreateAccount = () => {
       statePassword = 'A senha precisa ser igual a que você digitou anteriormente.'
     }
     setError(error => ({...error, confirmPassword: statePassword }))
+
+    return (statePassword !=='')
   }
 
   function verifyPasswordSecurity(text){
@@ -138,7 +148,7 @@ const ModalCreateAccount = () => {
             placeholder='Repetir senha'
             onChange = {(e) => verifyIfSamePassword(e.target.value) }
           />
-          {passwordSecurity.security != '' && 
+          {passwordSecurity.security  && 
             <p className="passwordSecurity">Segurança da senha: <span>{ passwordSecurity.security }</span></p>
           }
          
