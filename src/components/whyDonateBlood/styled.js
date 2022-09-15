@@ -78,6 +78,7 @@ const DivHowDonateBlood = styled.div`
   @media(max-width: ${SMALL_SIZE}px){
     flex-direction: column;
     width: 80%;
+    margin-bottom: 0px;
   }
 `
 
