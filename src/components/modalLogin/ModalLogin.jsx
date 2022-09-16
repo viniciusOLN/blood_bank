@@ -39,9 +39,11 @@ const ModalLogin = (props) => {
     const getToken = await getUserTokenLogin(fields.email, fields.password)
 
     if(getToken.isVerified){
+      console.log(getToken.return)
       setApiError(getToken.return.email)
       return
     }
+    console.log(getToken.return)
   }
 
   const handleHiddePassword = () => setFields((fields) => ({ ... fields, hidePassword: !fields.hidePassword}))
