@@ -4,12 +4,15 @@ import navbarIcon from '../../assets/images/navbar-icon.svg';
 import TextInput from "../textInput/TextInput";
 import ButtonDefault from "../button/Buton";
 import { useState } from 'react'
+import createAccount from "../../proxies/createAccount";
+import passwordSecurityField from "../../utils/passwordSecurity";
 
 const ModalCreateAccount = () => {
   const [apiError, setApiError] = useState('')
   const [passwordSecurity, setPasswordSecurity] = useState({ security: '', color: '--error-color' })
-  const [error, setError] = useState({ email: '', birthdate: '', password: '', confirmPassword: '' })
+  const [error, setError] = useState({ username: '', email: '', birthdate: '', password: '', confirmPassword: '' })
   const [fields, setFields] = useState({ 
+    username: '',
     email: '', 
     birthdate: '', 
     password: '', 
@@ -21,31 +24,48 @@ const ModalCreateAccount = () => {
   const validateForm = () => {
     setApiError('')
     setPasswordSecurity('')
+    let confirmPassword = ''
+
+    if(fields.confirmPassword !== fields.password){
+      confirmPassword = 'A senha precisa ser igual a que você digitou anteriormente.'
+    }
 
     setError(error => {
       return {
         ...error, 
+        username: (fields.username === '') ? 'Campo vazio!' : '',
         email: (fields.email === '') ? 'Campo de Email vazio!' : '',  
         password: (fields.password === '') ? 'Campo de senha vazio!' : '', 
         birthdate: (fields.birthdate === '') ? 'Preencha a data de nascimento!' : '', 
+        confirmPassword: (fields.confirmPassword === '') ? 'Campo vazio!' : confirmPassword,  
       }
     })
 
-    // if(verifyIfSamePassword()){
-    //   setError(error => {
-    //     return {
-    //       ...error,  
-    //       confirmPassword: 'A senha precisa ser igual a que você digitou anteriormente.'  
-    //     }
-    //   })
-    // }
-
-    return (fields.email !== '' && fields.password !== '')
+    return (fields.email !== '' && fields.password !== '' && fields.birthdate !=='' && fields.confirmPassword !=='' && fields.username !=='')
   }
   
   const handleSubmit = (e) => {
     e.preventDefault()
-    validateForm()
+    if(validateForm()){   
+      handleCreateAccountToken()  
+    }
+  }
+
+  async function handleCreateAccountToken(){
+    const getToken = await createAccount(
+      fields.username,
+      fields.email,
+      fields.birthdate,
+      fields.password,
+      fields.confirmPassword,
+    )
+    console.log(getToken)
+
+    // if(getToken.isVerified){
+    //   setApiError(getToken.return.email)
+    //   return
+    // }
+    // console.log(getToken.return)
   }
 
   const handleHiddePassword = () => setFields((fields) => ({ ... fields, hidePassword: !fields.hidePassword}))
@@ -56,51 +76,37 @@ const ModalCreateAccount = () => {
 
   const setField = (text, field) => setFields((fields) => ({... fields, [field]: text}))
 
+  function verifyField(text){
+    setField(text, 'confirmPassword')
+    verifyIfSamePassword(text)
+  }
+
   function verifyIfSamePassword(text){
     let statePassword = ''
-    setField(text, 'confirmPassword')
     if(text !== fields.password){
       statePassword = 'A senha precisa ser igual a que você digitou anteriormente.'
     }
     setError(error => ({...error, confirmPassword: statePassword }))
-
-    return (statePassword !=='')
+    return (text !== fields.password)
   }
 
   function verifyPasswordSecurity(text){
     setField(text, 'password')
-    const MIN_CARACTERS = 8
-    const specialCaracters = ['@', '#', '$', '*', '&', '%', '/', '\\']
-    const numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
-    let messageField = ''
-    let colorField = '--error-color'
-    let securityPassword = ''
-    const hasNumbers = numbers.some((e) => text.includes(e))
-    const hasSpecialCaracters = specialCaracters.some((e) => text.includes(e))
+    const verifiedPassword = passwordSecurityField(text)
+
+    let stateConfirmPassword = ''
     
-    if(text.length <= MIN_CARACTERS){
-      securityPassword = 'fraca'
-      messageField = `Mínimo de Caracteres: ${MIN_CARACTERS}`
-    }
-
-    if(text.length > MIN_CARACTERS){
-      securityPassword = 'fraca'
-    }
-
-    if(text.length >= MIN_CARACTERS && hasNumbers){
-      messageField = ''
-      securityPassword = 'mediana'
-      colorField = '--warning-color'      
-    }
-
-    if(text.length >= MIN_CARACTERS && hasSpecialCaracters && hasNumbers){
-      messageField = ''
-      securityPassword = 'forte' 
-      colorField = '--success-color'     
-    }
+    setError(error => ({ ...error, password: verifiedPassword.messageField }))
     
-    setError(error => ({ ...error, password: messageField }))
-    setPasswordSecurity((security) => ({... security, security: securityPassword, color: colorField}))
+    if((text !== fields.confirmPassword) ){
+      stateConfirmPassword = 'A senha precisa ser igual a que você digitou anteriormente.' 
+    }
+    setError(error => ({ ...error, confirmPassword: stateConfirmPassword }))
+    setPasswordSecurity((security) => ({
+      ... security, 
+      security: verifiedPassword.securityPassword, 
+      color: verifiedPassword.color
+    }))
   }
 
   return (
@@ -112,6 +118,14 @@ const ModalCreateAccount = () => {
       <DivLogin colorTipPassword = {passwordSecurity.color}>
         <p className='errorApi'>{apiError}</p>
         <form onSubmit={ handleSubmit }>
+        <TextInput
+            value = { fields.username } 
+            validate = { error.username }
+            type='text' 
+            name='username' 
+            placeholder='Nome de Usuário'
+            onChange = {(e) => setField(e.target.value, 'username') }
+          /> 
           <TextInput
             value = { fields.email } 
             validate = { error.email }
@@ -146,13 +160,13 @@ const ModalCreateAccount = () => {
             icon ={ fields.hideConfirmPassword ? 'ri-eye-off-line' : 'ri-eye-line' }
             onClickIcon={ handleHiddeConfirmPassword } 
             placeholder='Repetir senha'
-            onChange = {(e) => verifyIfSamePassword(e.target.value) }
+            onChange = {(e) => verifyField(e.target.value) }
           />
           {passwordSecurity.security  && 
             <p className="passwordSecurity">Segurança da senha: <span>{ passwordSecurity.security }</span></p>
           }
          
-          <ButtonDefault title='Entrar' theme='default' />
+          <ButtonDefault title='Cadastrar' theme='default' />
         </form>
        
       </DivLogin>
