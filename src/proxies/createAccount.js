@@ -1,9 +1,4 @@
 async function createAccount(usernameForm, emailForm, birthDateForm, passwordForm, confirmPasswordForm){
-  console.log(usernameForm)
-  console.log(emailForm)
-  console.log(birthDateForm)
-  console.log(passwordForm)
-  console.log(confirmPasswordForm)
   const getToken = await fetch('http://127.0.0.1:8000/blood_bank/signup/' , {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
