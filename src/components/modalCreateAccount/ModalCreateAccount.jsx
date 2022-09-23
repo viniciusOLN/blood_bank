@@ -3,23 +3,46 @@ import {TitleLogin, BrandLogo, DivLogin} from "./styled"
 import navbarIcon from '../../assets/images/navbar-icon.svg';
 import TextInput from "../textInput/TextInput";
 import ButtonDefault from "../button/Buton";
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import createAccount from "../../proxies/createAccount";
 import passwordSecurityField from "../../utils/passwordSecurity";
+import SelectInput from "../selectInput/SelectInput";
+import getAllEstates from "../../proxies/getAllEstates";
+import getAllCities from "../../proxies/getAllCities";
 
 const ModalCreateAccount = () => {
-  const [apiError, setApiError] = useState('')
+  const [apiError, setApiError] = useState('')  
   const [passwordSecurity, setPasswordSecurity] = useState({ security: '', color: '--error-color' })
   const [error, setError] = useState({ username: '', email: '', birthdate: '', password: '', confirmPassword: '' })
   const [fields, setFields] = useState({ 
     username: '',
     email: '', 
-    birthdate: '', 
+    birthdate: '',
+    estate: '', 
+    city: '',
     password: '', 
     confirmPassword: '', 
     hidePassword: false, 
     hideConfirmPassword: false
   })
+  const [getEstates, setStates] = useState([])
+  const [getCities, setCities] = useState([])
+
+  async function populateEstates(){
+    const data = await getAllEstates()
+    setStates(data)    
+  }
+  
+  async function populateCities(estate){
+    const data = await getAllCities(estate)
+    setCities(data)
+  }
+ 
+  useEffect(()=>{
+    populateEstates()
+  }, [])
+
+  
 
   const validateForm = () => {
     setApiError('')
@@ -42,6 +65,12 @@ const ModalCreateAccount = () => {
     })
 
     return (fields.email !== '' && fields.password !== '' && fields.birthdate !=='' && fields.confirmPassword !=='' && fields.username !=='')
+  }
+
+  const handleEstateInput = (e) => {
+    setField(e, 'estate')
+    populateCities(e)
+    console.log(e)
   }
   
   const handleSubmit = (e) => {
@@ -67,6 +96,7 @@ const ModalCreateAccount = () => {
     // }
     // console.log(getToken.return)
   }
+
 
   const handleHiddePassword = () => setFields((fields) => ({ ... fields, hidePassword: !fields.hidePassword}))
 
@@ -142,6 +172,20 @@ const ModalCreateAccount = () => {
             placeholder='Data de Nascimento'
             onChange = {(e) => setField(e.target.value, 'birthdate') }
           />
+          <SelectInput name='estate' validate='aaa' value={fields.estate} onChange = {(e)=> handleEstateInput(e.target.value)}>
+            <option value= ''>Selecione o estado</option>  
+            {getEstates.map((e, index) => 
+              <option key={index} value= {e.sigla}> {e.nome}</option>              
+            )}
+          </SelectInput>
+          {fields.estate != '' && 
+            <SelectInput name='cities' validate='aaa' value={fields.city} onChange = {(e)=> setField(e.target.value, 'city')}>
+              <option value= ''>Selecione a cidade</option>  
+              {getCities.map((e, index) => 
+                <option key={e.id} value= {e.nome}> {e.nome}</option>              
+              )}
+            </SelectInput>
+          }
            <TextInput 
             value = { fields.password } 
             validate = { error.password }
