@@ -13,7 +13,7 @@ import getAllCities from "../../proxies/getAllCities";
 const ModalCreateAccount = () => {
   const [apiError, setApiError] = useState('')  
   const [passwordSecurity, setPasswordSecurity] = useState({ security: '', color: '--error-color' })
-  const [error, setError] = useState({ username: '', email: '', birthdate: '', password: '', confirmPassword: '' })
+  const [error, setError] = useState({ username: '', email: '', birthdate: '', password: '', confirmPassword: '', estate: '',  city: '', })
   const [fields, setFields] = useState({ 
     username: '',
     email: '', 
@@ -59,12 +59,14 @@ const ModalCreateAccount = () => {
         username: (fields.username === '') ? 'Campo vazio!' : '',
         email: (fields.email === '') ? 'Campo de Email vazio!' : '',  
         password: (fields.password === '') ? 'Campo de senha vazio!' : '', 
+        estate: (fields.estate === '') ? 'Campo Vazio!' : '',
+        city: (fields.city === '') ? 'Campo Vazio!' : '',
         birthdate: (fields.birthdate === '') ? 'Preencha a data de nascimento!' : '', 
         confirmPassword: (fields.confirmPassword === '') ? 'Campo vazio!' : confirmPassword,  
       }
     })
 
-    return (fields.email !== '' && fields.password !== '' && fields.birthdate !=='' && fields.confirmPassword !=='' && fields.username !=='')
+    return (fields.email !== '' && fields.password !== '' && fields.birthdate !=='' && fields.confirmPassword !=='' && fields.username !=='' && fields.estate !=='' && fields.city !=='')
   }
 
   const handleEstateInput = (e) => {
@@ -173,14 +175,14 @@ const ModalCreateAccount = () => {
             placeholder='Data de Nascimento'
             onChange = {(e) => setField(e.target.value, 'birthdate') }
           />
-          <SelectInput name='estate' validate='aaa' value={fields.estate} onChange = {(e)=> handleEstateInput(e.target.value)}>
+          <SelectInput name='estate' validate={error.estate} value={fields.estate} onChange = {(e)=> handleEstateInput(e.target.value)}>
             <option value= ''>Selecione o estado</option>  
             {getEstates.map((e, index) => 
               <option key={index} value= {e.sigla}> {e.nome}</option>              
             )}
           </SelectInput>
           {fields.estate != '' && 
-            <SelectInput name='cities' validate='aaa' value={fields.city} onChange = {(e)=> setField(e.target.value, 'city')}>
+            <SelectInput name='cities' validate={error.city} value={fields.city} onChange = {(e)=> setField(e.target.value, 'city')}>
               <option value= ''>Selecione a cidade</option>  
               {getCities.map((e, index) => 
                 <option key={e.id} value= {e.nome}> {e.nome}</option>              
