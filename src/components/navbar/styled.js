@@ -1,19 +1,32 @@
 import styled from  'styled-components';
 
+const TABLET_AND_PHONE_SIZE = 1060;
+
 export const NavbarDiv = styled.div`
-    height: 70px;
+    height: 90px;
     background: #6441EE;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    padding-right: 40px;
-    padding-left: 40px;
     font-weight: bold;
+    
+    @media (max-width: ${TABLET_AND_PHONE_SIZE}px) {
+        height: auto;
+        flex-direction: column;
+        align-items: start;
+        justify-content: space-between;
+        padding: 10px;
+    }
 
-    img{
+    #logo{
+        width: 100px;
+        height: auto;
+    }
+
+    a > img{
+        width: 100%;
         height: 100%;
-        cursor: pointer;
-        margin-right: 10px;
+        display block;
     }
 
     button{
@@ -34,10 +47,21 @@ export const NavbarDiv = styled.div`
         }
     }
 
+    i{
+        color: var(--title-white);
+        font-size: 35px;
+        cursor: pointer;
+        display: none;
+        margin-top: 20px;
+
+        @media (max-width: ${TABLET_AND_PHONE_SIZE}px){
+            display: block;
+        }
+    }
 `
 
 export const LinksDiv = styled.div`
-    height: 100%;
+    width: 900px;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
@@ -47,14 +71,28 @@ export const LinksDiv = styled.div`
         font-weight: 700;
         font-size: 18px;
         color: #FFFFFF;
-        margin-right: 100px;
         text-align: center;
         &:active{
         color: #313030;
         }
     }
 
+    @media (max-width: ${TABLET_AND_PHONE_SIZE}px) {
+        flex-direction: column;
+        align-items: end;
+        margin: 20px 0px;
+        width: 100%;
+        display: ${(props)=> props.modalOpen ? 'flex' : 'none'};
+        a{
+            margin-bottom: 20px;
+        }
+    }
+`
 
-
-
+export const DivRowUtils = styled.div`
+    @media (max-width: ${TABLET_AND_PHONE_SIZE}px) {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
 `
