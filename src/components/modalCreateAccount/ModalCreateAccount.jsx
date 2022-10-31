@@ -70,7 +70,7 @@ const ModalCreateAccount = () => {
   const handleEstateInput = (e) => {
     setField(e, 'estate')
     populateCities(e)
-    console.log(e)
+    
   }
   
   const handleSubmit = (e) => {
