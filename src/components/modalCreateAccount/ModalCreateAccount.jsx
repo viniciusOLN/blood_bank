@@ -75,6 +75,7 @@ const ModalCreateAccount = () => {
   
   const handleSubmit = (e) => {
     e.preventDefault()
+   
     if(validateForm()){   
       handleCreateAccountToken()  
     }
